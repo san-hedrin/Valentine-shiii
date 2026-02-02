@@ -13,6 +13,7 @@
       align-items: center;
       height: 100vh;
       margin: 0;
+      overflow: hidden;
     }
 
     .card {
@@ -21,6 +22,8 @@
       border-radius: 12px;
       text-align: center;
       width: 320px;
+      position: relative;
+      z-index: 2;
     }
 
     h1 {
@@ -50,6 +53,24 @@
     #noBtn {
       background-color: #cccccc;
     }
+
+    .sticker {
+      position: absolute;
+      font-size: 32px;
+      animation: pop 0.4s ease;
+      pointer-events: none;
+    }
+
+    @keyframes pop {
+      from {
+        transform: scale(0);
+        opacity: 0;
+      }
+      to {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
   </style>
 </head>
 
@@ -74,12 +95,31 @@
     const yesBtn = document.getElementById("yesBtn");
     const noBtn = document.getElementById("noBtn");
 
+    const stickers = ["❤️", "💖", "🥰", "😍", "💕"];
+
+    function addSticker() {
+      const sticker = document.createElement("div");
+      sticker.className = "sticker";
+      sticker.textContent = stickers[Math.floor(Math.random() * stickers.length)];
+
+      sticker.style.left = Math.random() * window.innerWidth + "px";
+      sticker.style.top = Math.random() * window.innerHeight + "px";
+
+      document.body.appendChild(sticker);
+
+      setTimeout(() => {
+        sticker.remove();
+      }, 3000);
+    }
+
     noBtn.onclick = function () {
       yesScale += 0.3;
       noScale -= 0.2;
 
       yesBtn.style.transform = "scale(" + yesScale + ")";
       noBtn.style.transform = "scale(" + noScale + ")";
+
+      addSticker();
 
       if (noScale <= 0.3) {
         noBtn.style.display = "none";
@@ -94,4 +134,5 @@
 
 </body>
 </html>
+
 
