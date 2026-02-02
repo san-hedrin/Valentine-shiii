@@ -19,36 +19,36 @@
 
     .card {
       background: white;
-      padding: 20px;
+      padding: 40px;
       border-radius: 12px;
       text-align: center;
-      width: 90%;
-      max-width: 400px;
+      width: 95%;
+      max-width: 600px;
       box-sizing: border-box;
       position: relative;
       z-index: 2;
     }
 
     h1 {
-      margin-bottom: 15px;
-      font-size: 1.5em;
+      margin-bottom: 20px;
+      font-size: 2em;
     }
 
     video {
       width: 100%;
-      border-radius: 10px;
-      margin-bottom: 15px;
+      border-radius: 12px;
+      margin-bottom: 20px;
     }
 
     button {
-      padding: 10px 16px;
-      font-size: 1em;
+      padding: 16px 24px;
+      font-size: 1.25em;
       border: none;
-      border-radius: 8px;
-      margin: 8px;
+      border-radius: 10px;
+      margin: 12px;
       cursor: pointer;
       position: relative;
-      min-width: 80px;
+      min-width: 100px;
     }
 
     #yesBtn {
@@ -66,22 +66,23 @@
       left: 50%;
       transform: translate(-50%, -50%);
       background: white;
-      border: 2px solid #ff4d6d;
-      padding: 15px;
+      border: 3px solid #ff4d6d;
+      padding: 20px;
       border-radius: 12px;
       text-align: center;
       z-index: 9999;
     }
 
     .popup img {
-      max-width: 180px;
-      border-radius: 10px;
-      margin-bottom: 10px;
+      max-width: 250px;
+      border-radius: 12px;
+      margin-bottom: 15px;
     }
 
     .popup button {
       margin-top: 10px;
-      padding: 8px 16px;
+      padding: 10px 18px;
+      font-size: 1em;
       cursor: pointer;
     }
   </style>
@@ -90,7 +91,7 @@
 <body>
 
   <div class="card">
-    <h1>Will you be my Valentine?</h1>
+    <h1>Will you be my Valentine?😍😘💕💕</h1>
 
     <video controls>
       <source src="video.mp4" type="video/mp4">
@@ -143,17 +144,17 @@
     }
 
     noBtn.onclick = function() {
-      yesScale += 0.2;
+      yesScale += 0.25; // Yes button grows faster for big screens
       yesBtn.style.transform = "scale(" + yesScale + ")";
       showNoPopup();
       moveNoButton();
     };
 
     yesBtn.onclick = function() {
-      document.body.innerHTML = "<h1 style='text-align:center;'>I knew you would say yes ❤️</h1>";
+      document.body.innerHTML = "<h1 style='text-align:center; font-size:2em;'>I knew you would say yes ❤️</h1>";
     };
 
-    // Adjust No button if window resizes
+    // Keep No button inside screen on resize
     window.addEventListener("resize", () => {
       const rect = noBtn.getBoundingClientRect();
       const maxX = window.innerWidth - noBtn.offsetWidth - 10;
