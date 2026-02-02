@@ -19,16 +19,19 @@
 
     .card {
       background: white;
-      padding: 30px;
+      padding: 20px;
       border-radius: 12px;
       text-align: center;
-      width: 320px;
+      width: 90%;
+      max-width: 400px;
+      box-sizing: border-box;
       position: relative;
       z-index: 2;
     }
 
     h1 {
       margin-bottom: 15px;
+      font-size: 1.5em;
     }
 
     video {
@@ -38,13 +41,14 @@
     }
 
     button {
-      padding: 12px 20px;
-      font-size: 16px;
+      padding: 10px 16px;
+      font-size: 1em;
       border: none;
       border-radius: 8px;
-      margin: 10px;
+      margin: 8px;
       cursor: pointer;
       position: relative;
+      min-width: 80px;
     }
 
     #yesBtn {
@@ -63,14 +67,14 @@
       transform: translate(-50%, -50%);
       background: white;
       border: 2px solid #ff4d6d;
-      padding: 20px;
+      padding: 15px;
       border-radius: 12px;
       text-align: center;
       z-index: 9999;
     }
 
     .popup img {
-      max-width: 200px;
+      max-width: 180px;
       border-radius: 10px;
       margin-bottom: 10px;
     }
@@ -127,8 +131,8 @@
     }
 
     function moveNoButton() {
-      const maxX = window.innerWidth - noBtn.offsetWidth;
-      const maxY = window.innerHeight - noBtn.offsetHeight;
+      const maxX = window.innerWidth - noBtn.offsetWidth - 10;
+      const maxY = window.innerHeight - noBtn.offsetHeight - 10;
 
       const randX = Math.random() * maxX;
       const randY = Math.random() * maxY;
@@ -148,6 +152,15 @@
     yesBtn.onclick = function() {
       document.body.innerHTML = "<h1 style='text-align:center;'>I knew you would say yes ❤️</h1>";
     };
+
+    // Adjust No button if window resizes
+    window.addEventListener("resize", () => {
+      const rect = noBtn.getBoundingClientRect();
+      const maxX = window.innerWidth - noBtn.offsetWidth - 10;
+      const maxY = window.innerHeight - noBtn.offsetHeight - 10;
+      if(rect.left > maxX) noBtn.style.left = maxX + "px";
+      if(rect.top > maxY) noBtn.style.top = maxY + "px";
+    });
   </script>
 
 </body>
