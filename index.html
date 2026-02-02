@@ -54,22 +54,28 @@
       background-color: #cccccc;
     }
 
-    .sticker {
-      position: absolute;
-      font-size: 32px;
-      animation: pop 0.4s ease;
-      pointer-events: none;
+    .popup {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: white;
+      border: 2px solid #ff4d6d;
+      padding: 20px;
+      border-radius: 12px;
+      text-align: center;
+      z-index: 9999;
     }
 
-    @keyframes pop {
-      from {
-        transform: scale(0);
-        opacity: 0;
-      }
-      to {
-        transform: scale(1);
-        opacity: 1;
-      }
+    .popup img {
+      max-width: 200px;
+      border-radius: 10px;
+      margin-bottom: 10px;
+    }
+
+    .popup button {
+      margin-top: 10px;
+      padding: 8px 16px;
     }
   </style>
 </head>
@@ -89,41 +95,39 @@
   </div>
 
   <script>
-    let yesScale = 1;
-    let noScale = 1;
-
     const yesBtn = document.getElementById("yesBtn");
     const noBtn = document.getElementById("noBtn");
 
-    const stickers = ["❤️", "💖", "🥰", "😍", "💕"];
+    const noImages = [
+      "sticker1.png",
+      "sticker2.png",
+      "sticker3.png"
+    ]; // upload these images to the repository
 
-    function addSticker() {
-      const sticker = document.createElement("div");
-      sticker.className = "sticker";
-      sticker.textContent = stickers[Math.floor(Math.random() * stickers.length)];
+    function showNoPopup() {
+      const popup = document.createElement("div");
+      popup.className = "popup";
 
-      sticker.style.left = Math.random() * window.innerWidth + "px";
-      sticker.style.top = Math.random() * window.innerHeight + "px";
+      const img = document.createElement("img");
+      img.src = noImages[Math.floor(Math.random() * noImages.length)];
+      popup.appendChild(img);
 
-      document.body.appendChild(sticker);
+      const message = document.createElement("div");
+      message.textContent = "Oops! Try again 🙂";
+      popup.appendChild(message);
 
-      setTimeout(() => {
-        sticker.remove();
-      }, 3000);
+      const closeBtn = document.createElement("button");
+      closeBtn.textContent = "Choose again";
+      closeBtn.onclick = function() {
+        popup.remove();
+      };
+      popup.appendChild(closeBtn);
+
+      document.body.appendChild(popup);
     }
 
     noBtn.onclick = function () {
-      yesScale += 0.3;
-      noScale -= 0.2;
-
-      yesBtn.style.transform = "scale(" + yesScale + ")";
-      noBtn.style.transform = "scale(" + noScale + ")";
-
-      addSticker();
-
-      if (noScale <= 0.3) {
-        noBtn.style.display = "none";
-      }
+      showNoPopup();
     };
 
     yesBtn.onclick = function () {
@@ -134,5 +138,6 @@
 
 </body>
 </html>
+
 
 
