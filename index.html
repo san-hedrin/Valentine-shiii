@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Valentine</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #ffe6eb;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .card {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      text-align: center;
+      width: 300px;
+    }
+
+    button {
+      padding: 12px 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      margin: 10px;
+      cursor: pointer;
+    }
+
+    #yesBtn {
+      background-color: #ff4d6d;
+      color: white;
+    }
+
+    #noBtn {
+      background-color: #cccccc;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <h1>Will you be my Valentine?</h1>
+    <button id="yesBtn">Yes</button>
+    <button id="noBtn">No</button>
+  </div>
+
+  <script>
+    let yesScale = 1;
+    let noScale = 1;
+
+    const yesBtn = document.getElementById("yesBtn");
+    const noBtn = document.getElementById("noBtn");
+
+    noBtn.onclick = function () {
+      yesScale += 0.3;
+      noScale -= 0.2;
+
+      yesBtn.style.transform = "scale(" + yesScale + ")";
+      noBtn.style.transform = "scale(" + noScale + ")";
+
+      if (noScale <= 0.3) {
+        noBtn.style.display = "none";
+      }
+    };
+
+    yesBtn.onclick = function () {
+      document.body.innerHTML = "<h1 style='text-align:center;'>I knew you would say yes ❤️</h1>";
+    };
+  </script>
+
+</body>
+</html>
