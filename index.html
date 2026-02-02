@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Valentine</title>
+
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -19,7 +20,17 @@
       padding: 30px;
       border-radius: 12px;
       text-align: center;
-      width: 300px;
+      width: 320px;
+    }
+
+    h1 {
+      margin-bottom: 15px;
+    }
+
+    video {
+      width: 100%;
+      border-radius: 10px;
+      margin-bottom: 15px;
     }
 
     button {
@@ -41,10 +52,17 @@
     }
   </style>
 </head>
+
 <body>
 
   <div class="card">
     <h1>Will you be my Valentine?</h1>
+
+    <video controls>
+      <source src="video.mp4" type="video/mp4">
+      Your browser does not support video.
+    </video>
+
     <button id="yesBtn">Yes</button>
     <button id="noBtn">No</button>
   </div>
@@ -69,9 +87,11 @@
     };
 
     yesBtn.onclick = function () {
-      document.body.innerHTML = "<h1 style='text-align:center;'>I knew you would say yes ❤️</h1>";
+      document.body.innerHTML =
+        "<h1 style='text-align:center;'>I knew you would say yes ❤️</h1>";
     };
   </script>
 
 </body>
 </html>
+
