@@ -4,6 +4,8 @@
   <meta charset="UTF-8">
   <title>Valentine</title>
 
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -19,7 +21,7 @@
 
     .card {
       background: white;
-      padding: 40px;
+      padding: 40px 20px;
       border-radius: 12px;
       text-align: center;
       width: 95%;
@@ -40,15 +42,21 @@
       margin-bottom: 20px;
     }
 
+    .buttons {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
     button {
       padding: 16px 24px;
       font-size: 1.25em;
       border: none;
       border-radius: 10px;
-      margin: 12px;
       cursor: pointer;
-      position: relative;
-      min-width: 100px;
+      min-width: 120px;
+      flex: 1;
     }
 
     #yesBtn {
@@ -71,6 +79,7 @@
       border-radius: 12px;
       text-align: center;
       z-index: 9999;
+      max-width: 90%;
     }
 
     .popup img {
@@ -85,21 +94,30 @@
       font-size: 1em;
       cursor: pointer;
     }
+
+    /* Mobile adjustments */
+    @media (max-width: 480px) {
+      h1 { font-size: 1.5em; }
+      button { font-size: 1.1em; padding: 14px 20px; min-width: 100%; }
+      .buttons { flex-direction: column; }
+    }
   </style>
 </head>
 
 <body>
 
   <div class="card">
-    <h1>Will you be my Valentine?😍😘💕💕</h1>
+    <h1>Will you be my Valentine?</h1>
 
     <video controls>
       <source src="video.mp4" type="video/mp4">
       Your browser does not support video.
     </video>
 
-    <button id="yesBtn">Yes</button>
-    <button id="noBtn">No</button>
+    <div class="buttons">
+      <button id="yesBtn">Yes</button>
+      <button id="noBtn">No</button>
+    </div>
   </div>
 
   <script>
@@ -144,7 +162,7 @@
     }
 
     noBtn.onclick = function() {
-      yesScale += 0.25; // Yes button grows faster for big screens
+      yesScale += 0.25;
       yesBtn.style.transform = "scale(" + yesScale + ")";
       showNoPopup();
       moveNoButton();
@@ -154,7 +172,6 @@
       document.body.innerHTML = "<h1 style='text-align:center; font-size:2em;'>I knew you would say yes ❤️</h1>";
     };
 
-    // Keep No button inside screen on resize
     window.addEventListener("resize", () => {
       const rect = noBtn.getBoundingClientRect();
       const maxX = window.innerWidth - noBtn.offsetWidth - 10;
