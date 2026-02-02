@@ -1,198 +1,224 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Valentine</title>
+<meta charset="UTF-8">
+<title>Valentine</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    height: 100vh;
+    overflow: hidden;
+    background-color: #ffe6eb;
+    position: relative;
+  }
 
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  .emoji {
+    position: absolute;
+    font-size: 24px;
+    animation: float 6s linear infinite;
+    pointer-events: none;
+  }
 
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #ffe6eb;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      margin: 0;
-      overflow: hidden;
-      position: relative;
-    }
+  @keyframes float {
+    0% { transform: translateY(100vh) rotate(0deg); }
+    100% { transform: translateY(-50px) rotate(360deg); }
+  }
 
-    .card {
-      background: white;
-      padding: 40px 30px;
-      border-radius: 12px;
-      text-align: center;
-      width: 90%;
-      max-width: 700px;
-      box-sizing: border-box;
-      position: relative;
-      z-index: 2;
-    }
+  .screen {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    height: 100%;
+    width: 100%;
+    position: relative;
+    z-index: 2;
+  }
 
-    h1 {
-      margin-bottom: 25px;
-      font-size: 2em;
-    }
+  .screen.active {
+    display: flex;
+  }
 
-    video {
-      width: 100%;
-      border-radius: 12px;
-      margin-bottom: 25px;
-    }
+  h1 {
+    font-size: 2em;
+    color: #ff4d6d;
+    margin-bottom: 20px;
+  }
 
-    .buttons {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      flex-wrap: wrap;
-    }
+  video {
+    width: 90%;
+    border-radius: 12px;
+    margin-bottom: 20px;
+  }
 
-    button {
-      padding: 18px 28px;
-      font-size: 1.3em;
-      border: none;
-      border-radius: 12px;
-      cursor: pointer;
-      min-width: 140px;
-      flex: 1;
-    }
+  button {
+    padding: 16px 24px;
+    font-size: 1.3em;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    margin: 10px;
+  }
 
-    #yesBtn {
-      background-color: #ff4d6d;
-      color: white;
-    }
+  #nextBtn {
+    background-color: #ff4d6d;
+    color: white;
+  }
 
-    #noBtn {
-      background-color: #cccccc;
-    }
+  #yesBtn {
+    background-color: #ff4d6d;
+    color: white;
+  }
 
-    .popup {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background: white;
-      border: 3px solid #ff4d6d;
-      padding: 25px;
-      border-radius: 12px;
-      text-align: center;
-      z-index: 9999;
-      max-width: 90%;
-    }
+  #noBtn {
+    background-color: #cccccc;
+  }
 
-    .popup img {
-      max-width: 300px;
-      border-radius: 12px;
-      margin-bottom: 15px;
-    }
+  .buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
 
-    .popup button {
-      margin-top: 12px;
-      padding: 12px 20px;
-      font-size: 1.1em;
-      cursor: pointer;
-    }
+  .popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    border: 3px solid #ff4d6d;
+    padding: 25px;
+    border-radius: 12px;
+    text-align: center;
+    z-index: 9999;
+    max-width: 90%;
+  }
 
-    @media (max-width: 800px) and (orientation: landscape) {
-      .card {
-        width: 95%;
-        padding: 30px 20px;
-      }
-      h1 {
-        font-size: 1.8em;
-      }
-      button {
-        font-size: 1.2em;
-        padding: 16px 24px;
-      }
-    }
+  .popup img {
+    max-width: 250px;
+    border-radius: 12px;
+    margin-bottom: 15px;
+  }
 
-    @media (max-width: 480px) {
-      h1 { font-size: 1.5em; }
-      .buttons { flex-direction: column; }
-      button { font-size: 1.1em; padding: 14px 20px; min-width: 100%; }
-    }
-  </style>
+  .popup button {
+    margin-top: 12px;
+    padding: 12px 20px;
+    font-size: 1.1em;
+    cursor: pointer;
+  }
+</style>
 </head>
-
 <body>
 
-  <div class="card">
-    <h1>Will you be my Valentine?</h1>
+<!-- Screen 1: Video + Next -->
+<div id="screen1" class="screen active">
+  <h1>Will you be my Valentine?</h1>
+  <video controls>
+    <source src="video.mp4" type="video/mp4">
+    Your browser does not support video.
+  </video>
+  <button id="nextBtn">Next</button>
+</div>
 
-    <video controls>
-      <source src="video.mp4" type="video/mp4">
-      Your browser does not support video.
-    </video>
-
-    <div class="buttons">
-      <button id="yesBtn">Yes</button>
-      <button id="noBtn">No</button>
-    </div>
+<!-- Screen 2: Yes/No buttons -->
+<div id="screen2" class="screen">
+  <h1>Do you love me? ❤️</h1>
+  <div class="buttons">
+    <button id="yesBtn">Yes</button>
+    <button id="noBtn">No</button>
   </div>
+</div>
 
-  <script>
-    const yesBtn = document.getElementById("yesBtn");
-    const noBtn = document.getElementById("noBtn");
-    const noImages = ["sticker1.png","sticker2.png","sticker3.png"]; // upload these
+<script>
+  const screen1 = document.getElementById("screen1");
+  const screen2 = document.getElementById("screen2");
+  const nextBtn = document.getElementById("nextBtn");
+  const yesBtn = document.getElementById("yesBtn");
+  const noBtn = document.getElementById("noBtn");
 
-    let yesScale = 1;
+  const noImages = ["sticker1.png","sticker2.png","sticker3.png"]; // upload these
 
-    function showNoPopup() {
-      const popup = document.createElement("div");
-      popup.className = "popup";
+  let yesScale = 1;
 
-      const img = document.createElement("img");
-      img.src = noImages[Math.floor(Math.random() * noImages.length)];
-      popup.appendChild(img);
+  // Move to screen 2
+  nextBtn.onclick = function() {
+    screen1.classList.remove("active");
+    screen2.classList.add("active");
+  }
 
-      const message = document.createElement("div");
-      message.textContent = "Oops! Try again 🙂";
-      popup.appendChild(message);
-
-      const closeBtn = document.createElement("button");
-      closeBtn.textContent = "Choose again";
-      closeBtn.onclick = function() {
-        popup.remove();
-      };
-      popup.appendChild(closeBtn);
-
-      document.body.appendChild(popup);
+  // Floating heart emojis
+  function createHearts(count = 30) {
+    const emojis = ["❤️","💖","💕","💘","💝"];
+    for(let i=0;i<count;i++){
+      const span = document.createElement("div");
+      span.className = "emoji";
+      span.textContent = emojis[Math.floor(Math.random()*emojis.length)];
+      span.style.left = Math.random() * window.innerWidth + "px";
+      span.style.animationDuration = (4+Math.random()*4) + "s";
+      document.body.appendChild(span);
     }
+  }
 
-    function moveNoButton() {
-      const maxX = window.innerWidth - noBtn.offsetWidth - 10;
-      const maxY = window.innerHeight - noBtn.offsetHeight - 10;
+  createHearts(50); // lots of floating hearts
 
-      const randX = Math.random() * maxX;
-      const randY = Math.random() * maxY;
+  function showNoPopup() {
+    const popup = document.createElement("div");
+    popup.className = "popup";
 
-      noBtn.style.position = "fixed";
-      noBtn.style.left = randX + "px";
-      noBtn.style.top = randY + "px";
-    }
+    const img = document.createElement("img");
+    img.src = noImages[Math.floor(Math.random() * noImages.length)];
+    popup.appendChild(img);
 
-    noBtn.onclick = function() {
-      yesScale += 0.25;
-      yesBtn.style.transform = "scale(" + yesScale + ")";
-      showNoPopup();
-      moveNoButton();
+    const message = document.createElement("div");
+    message.textContent = "Oops! Try again 🙂";
+    popup.appendChild(message);
+
+    const closeBtn = document.createElement("button");
+    closeBtn.textContent = "Choose again";
+    closeBtn.onclick = function() {
+      popup.remove();
     };
+    popup.appendChild(closeBtn);
 
-    yesBtn.onclick = function() {
-      document.body.innerHTML = "<h1 style='text-align:center; font-size:2em;'>I LOOOOOOOVE YOU ❤️</h1>";
-    };
+    document.body.appendChild(popup);
+  }
 
-    window.addEventListener("resize", () => {
-      const rect = noBtn.getBoundingClientRect();
-      const maxX = window.innerWidth - noBtn.offsetWidth - 10;
-      const maxY = window.innerHeight - noBtn.offsetHeight - 10;
-      if(rect.left > maxX) noBtn.style.left = maxX + "px";
-      if(rect.top > maxY) noBtn.style.top = maxY + "px";
-    });
-  </script>
+  function moveNoButton() {
+    const maxX = window.innerWidth - noBtn.offsetWidth - 10;
+    const maxY = window.innerHeight - noBtn.offsetHeight - 10;
+
+    const randX = Math.random() * maxX;
+    const randY = Math.random() * maxY;
+
+    noBtn.style.position = "fixed";
+    noBtn.style.left = randX + "px";
+    noBtn.style.top = randY + "px";
+  }
+
+  noBtn.onclick = function() {
+    yesScale += 0.25;
+    yesBtn.style.transform = "scale(" + yesScale + ")";
+    showNoPopup();
+    moveNoButton();
+  };
+
+  yesBtn.onclick = function() {
+    document.body.innerHTML = "<h1 style='text-align:center; font-size:2em; color:#ff4d6d;'>I knew you would say yes ❤️</h1>";
+  };
+
+  window.addEventListener("resize", () => {
+    const rect = noBtn.getBoundingClientRect();
+    const maxX = window.innerWidth - noBtn.offsetWidth - 10;
+    const maxY = window.innerHeight - noBtn.offsetHeight - 10;
+    if(rect.left > maxX) noBtn.style.left = maxX + "px";
+    if(rect.top > maxY) noBtn.style.top = maxY + "px";
+  });
+</script>
 
 </body>
 </html>
+
