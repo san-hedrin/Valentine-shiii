@@ -21,41 +21,41 @@
 
     .card {
       background: white;
-      padding: 40px 20px;
+      padding: 40px 30px;
       border-radius: 12px;
       text-align: center;
-      width: 95%;
-      max-width: 600px;
+      width: 90%;
+      max-width: 700px;
       box-sizing: border-box;
       position: relative;
       z-index: 2;
     }
 
     h1 {
-      margin-bottom: 20px;
+      margin-bottom: 25px;
       font-size: 2em;
     }
 
     video {
       width: 100%;
       border-radius: 12px;
-      margin-bottom: 20px;
+      margin-bottom: 25px;
     }
 
     .buttons {
       display: flex;
       justify-content: center;
+      gap: 20px;
       flex-wrap: wrap;
-      gap: 12px;
     }
 
     button {
-      padding: 16px 24px;
-      font-size: 1.25em;
+      padding: 18px 28px;
+      font-size: 1.3em;
       border: none;
-      border-radius: 10px;
+      border-radius: 12px;
       cursor: pointer;
-      min-width: 120px;
+      min-width: 140px;
       flex: 1;
     }
 
@@ -75,7 +75,7 @@
       transform: translate(-50%, -50%);
       background: white;
       border: 3px solid #ff4d6d;
-      padding: 20px;
+      padding: 25px;
       border-radius: 12px;
       text-align: center;
       z-index: 9999;
@@ -83,23 +83,36 @@
     }
 
     .popup img {
-      max-width: 250px;
+      max-width: 300px;
       border-radius: 12px;
       margin-bottom: 15px;
     }
 
     .popup button {
-      margin-top: 10px;
-      padding: 10px 18px;
-      font-size: 1em;
+      margin-top: 12px;
+      padding: 12px 20px;
+      font-size: 1.1em;
       cursor: pointer;
     }
 
-    /* Mobile adjustments */
+    @media (max-width: 800px) and (orientation: landscape) {
+      .card {
+        width: 95%;
+        padding: 30px 20px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+      button {
+        font-size: 1.2em;
+        padding: 16px 24px;
+      }
+    }
+
     @media (max-width: 480px) {
       h1 { font-size: 1.5em; }
-      button { font-size: 1.1em; padding: 14px 20px; min-width: 100%; }
       .buttons { flex-direction: column; }
+      button { font-size: 1.1em; padding: 14px 20px; min-width: 100%; }
     }
   </style>
 </head>
