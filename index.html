@@ -14,6 +14,7 @@
       height: 100vh;
       margin: 0;
       overflow: hidden;
+      position: relative;
     }
 
     .card {
@@ -43,6 +44,7 @@
       border-radius: 8px;
       margin: 10px;
       cursor: pointer;
+      position: relative;
     }
 
     #yesBtn {
@@ -76,6 +78,7 @@
     .popup button {
       margin-top: 10px;
       padding: 8px 16px;
+      cursor: pointer;
     }
   </style>
 </head>
@@ -97,12 +100,9 @@
   <script>
     const yesBtn = document.getElementById("yesBtn");
     const noBtn = document.getElementById("noBtn");
+    const noImages = ["sticker1.png","sticker2.png","sticker3.png"]; // upload these
 
-    const noImages = [
-      "sticker1.png",
-      "sticker2.png",
-      "sticker3.png"
-    ]; // upload these images to the repository
+    let yesScale = 1;
 
     function showNoPopup() {
       const popup = document.createElement("div");
@@ -126,18 +126,29 @@
       document.body.appendChild(popup);
     }
 
-    noBtn.onclick = function () {
+    function moveNoButton() {
+      const maxX = window.innerWidth - noBtn.offsetWidth;
+      const maxY = window.innerHeight - noBtn.offsetHeight;
+
+      const randX = Math.random() * maxX;
+      const randY = Math.random() * maxY;
+
+      noBtn.style.position = "fixed";
+      noBtn.style.left = randX + "px";
+      noBtn.style.top = randY + "px";
+    }
+
+    noBtn.onclick = function() {
+      yesScale += 0.2;
+      yesBtn.style.transform = "scale(" + yesScale + ")";
       showNoPopup();
+      moveNoButton();
     };
 
-    yesBtn.onclick = function () {
-      document.body.innerHTML =
-        "<h1 style='text-align:center;'>I knew you would say yes ❤️</h1>";
+    yesBtn.onclick = function() {
+      document.body.innerHTML = "<h1 style='text-align:center;'>I knew you would say yes ❤️</h1>";
     };
   </script>
 
 </body>
 </html>
-
-
-
